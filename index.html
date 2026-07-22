@@ -459,7 +459,7 @@
           body: JSON.stringify(data)
         });
 
-        showToast('✅ Báo cáo đã được gửi thành công! File Word đang được tạo.', 'success');
+        showToast('✅ Báo cáo đã được gửi thành công! File Word tổng hợp đang được tạo/cập nhật.', 'success');
         setTimeout(() => window.location.reload(), 3000);
       } catch (error) {
         showToast('❌ Lỗi kết nối: ' + error.message, 'error');
