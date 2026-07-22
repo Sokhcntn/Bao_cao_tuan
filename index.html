@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Báo cáo tuần - Sở KH&CN Tây Ninh</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+      background: linear-gradient(145deg, #e8edf3 0%, #d0d9e6 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .container {
+      max-width: 960px;
+      width: 100%;
+      background: white;
+      border-radius: 32px;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+      padding: 40px 45px;
+      transition: 0.3s;
+    }
+    @media (max-width: 600px) {
+      .container { padding: 20px; }
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      border-bottom: 3px solid #1a3c6e;
+      padding-bottom: 20px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+    .logo {
+      background: #1a3c6e;
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      color: white;
+      font-weight: bold;
+    }
+    .title-group h1 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #1a3c6e;
+      line-height: 1.2;
+    }
+    .title-group p {
+      color: #4a5b6e;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .section {
+      background: #f8faff;
+      border-radius: 18px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      border: 1px solid #e9eef4;
+      transition: 0.2s;
+    }
+    .section:hover {
+      border-color: #b3c7e0;
+    }
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #0b2a4a;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-title .badge {
+      background: #1a3c6e;
+      color: white;
+      font-size: 12px;
+      padding: 2px 12px;
+      border-radius: 30px;
+    }
+    .form-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 16px;
+    }
+    .form-group {
+      flex: 1 1 200px;
+      min-width: 160px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #1f3a5f;
+      margin-bottom: 5px;
+    }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid #dce3ed;
+      border-radius: 12px;
+      font-size: 14px;
+      background: white;
+      transition: 0.2s;
+      font-family: inherit;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      outline: none;
+      border-color: #1a3c6e;
+      box-shadow: 0 0 0 3px rgba(26,60,110,0.15);
+    }
+    .form-group textarea {
+      resize: vertical;
+      min-height: 60px;
+    }
+    .task-group {
+      background: white;
+      border-radius: 14px;
+      padding: 14px 18px;
+      margin-bottom: 12px;
+      border-left: 4px solid #1a3c6e;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+    .task-group .task-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .task-group .task-header span {
+      font-weight: 600;
+      color: #1a3c6e;
+      font-size: 14px;
+    }
+    .btn-remove-task {
+      background: #fee2e2;
+      border: none;
+      color: #b91c1c;
+      padding: 2px 12px;
+      border-radius: 30px;
+      font-size: 13px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .btn-remove-task:hover {
+      background: #fecaca;
+    }
+    .btn-add-task {
+      background: transparent;
+      border: 1.5px dashed #1a3c6e;
+      color: #1a3c6e;
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      transition: 0.2s;
+      margin-top: 8px;
+      margin-right: 8px;
+    }
+    .btn-add-task:hover {
+      background: #eef4ff;
+    }
+    .btn-submit {
+      background: #1a3c6e;
+      border: none;
+      color: white;
+      font-weight: 700;
+      font-size: 18px;
+      padding: 16px 36px;
+      border-radius: 50px;
+      width: 100%;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 10px;
+      letter-spacing: 0.5px;
+    }
+    .btn-submit:hover {
+      background: #0f2a4f;
+      transform: scale(1.01);
+      box-shadow: 0 10px 20px -5px rgba(26,60,110,0.3);
+    }
+    .btn-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .toast {
+      background: #1f3a5f;
+      color: white;
+      padding: 14px 24px;
+      border-radius: 60px;
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-weight: 500;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      z-index: 999;
+      display: none;
+      max-width: 90%;
+    }
+    .toast.success { background: #0b6e4f; }
+    .toast.error { background: #b91c1c; }
+    .spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-top: 3px solid white;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      vertical-align: middle;
+      margin-right: 10px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .footer {
+      margin-top: 30px;
+      text-align: center;
+      color: #6a7b8c;
+      font-size: 13px;
+      border-top: 1px solid #e9eef4;
+      padding-top: 20px;
+    }
+    .required-star { color: #c0392b; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="container" id="app">
+    <div class="header">
+      <div class="logo">🏛️</div>
+      <div class="title-group">
+        <h1>📋 BÁO CÁO TUẦN</h1>
+        <p>SỞ KHOA HỌC VÀ CÔNG NGHỆ TÂY NINH</p>
+      </div>
+    </div>
+
+    <form id="reportForm" onsubmit="submitForm(event)">
+      <!-- THÔNG TIN CHUNG -->
+      <div class="section">
+        <div class="section-title"><span>📌</span> Thông tin chung</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Đơn vị báo cáo <span class="required-star">*</span></label>
+            <select id="unit" required>
+              <option value="">-- Chọn đơn vị --</option>
+              <option value="Phòng Khoa học">Phòng Khoa học</option>
+              <option value="Phòng CN&ĐMST">Phòng CN&ĐMST</option>
+              <option value="Phòng Chuyển đổi số">Phòng Chuyển đổi số</option>
+              <option value="Phòng TĐC">Phòng Tiêu chuẩn Đo lường Chất lượng</option>
+              <option value="Phòng KHTC">Phòng Kế hoạch - Tài chính</option>
+              <option value="Văn phòng Sở">Văn phòng Sở</option>
+              <option value="Trung tâm CĐS">Trung tâm Chuyển đổi số</option>
+              <option value="Trung tâm KHCN&ĐMST">Trung tâm KHCN&ĐMST</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Ngày bắt đầu <span class="required-star">*</span></label>
+            <input type="date" id="startDate" required>
+          </div>
+          <div class="form-group">
+            <label>Ngày kết thúc <span class="required-star">*</span></label>
+            <input type="date" id="endDate" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Người lập báo cáo <span class="required-star">*</span></label>
+          <input type="text" id="reporter" placeholder="Họ và tên" required>
+        </div>
+      </div>
+
+      <!-- I. KẾT QUẢ NỔI BẬT -->
+      <div class="section">
+        <div class="section-title"><span>⭐</span> I. KẾT QUẢ NỔI BẬT</div>
+        <p style="color:#4a5b6e; font-size:14px; margin-bottom:14px;">Nhập từng nhiệm vụ đã hoàn thành trong tuần.</p>
+        <div id="taskContainer1"></div>
+        <button type="button" class="btn-add-task" onclick="addTask('taskContainer1', 'NQ57')">+ Nghị quyết 57</button>
+        <button type="button" class="btn-add-task" onclick="addTask('taskContainer1', 'TW')">+ Trung ương giao</button>
+        <button type="button" class="btn-add-task" onclick="addTask('taskContainer1', 'Tinhuy')">+ Tỉnh ủy giao</button>
+        <button type="button" class="btn-add-task" onclick="addTask('taskContainer1', 'UBND')">+ HĐND/UBND giao</button>
+      </div>
+
+      <!-- II. KẾT QUẢ CHUYÊN MÔN -->
+      <div class="section">
+        <div class="section-title"><span>📂</span> II. KẾT QUẢ THỰC HIỆN NHIỆM VỤ CHUYÊN MÔN</div>
+        <div class="form-group">
+          <label>Mô tả chi tiết kết quả các lĩnh vực (KH, CN, CĐS, TĐC, KHTC, Hành chính, Trung tâm...)</label>
+          <textarea id="chuyenMon" rows="6" placeholder="Nhập kết quả hoạt động chuyên môn..."></textarea>
+        </div>
+      </div>
+
+      <!-- TÀI CHÍNH -->
+      <div class="section" style="background:#f0f6ff; border-left:5px solid #1a3c6e;">
+        <div class="section-title"><span>💰</span> TÌNH HÌNH TÀI CHÍNH</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Vốn đầu tư công năm 2026 (đồng)</label>
+            <input type="text" id="vonDauTu" placeholder="Ví dụ: 300.000.000">
+          </div>
+          <div class="form-group">
+            <label>Giải ngân (đồng)</label>
+            <input type="text" id="giaiNgan" placeholder="Ví dụ: 0">
+          </div>
+          <div class="form-group">
+            <label>Tỷ lệ giải ngân (%)</label>
+            <input type="number" id="tyLeGiaiNgan" step="0.01" placeholder="0.0">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Kinh phí sự nghiệp KH&CN được giao (đồng)</label>
+            <input type="text" id="kinhPhiGiao" placeholder="Ví dụ: 160.298.527.233">
+          </div>
+          <div class="form-group">
+            <label>Đã giải ngân (đồng)</label>
+            <input type="text" id="kinhPhiGiaiNgan" placeholder="Ví dụ: 23.007.408.986">
+          </div>
+          <div class="form-group">
+            <label>Tỷ lệ giải ngân (%)</label>
+            <input type="number" id="tyLeGiaiNganKinhPhi" step="0.01" placeholder="0.0">
+          </div>
+        </div>
+      </div>
+
+      <!-- III. KẾ HOẠCH TUẦN SAU -->
+      <div class="section">
+        <div class="section-title"><span>📅</span> III. KẾ HOẠCH TRỌNG TÂM SẮP TỚI</div>
+        <div id="taskContainer2"></div>
+        <button type="button" class="btn-add-task" onclick="addTask('taskContainer2', 'KH_NQ57')">+ Kế hoạch NQ57</button>
+        <button type="button" class="btn-add-task" onclick="addTask('taskContainer2', 'KH_TW')">+ Kế hoạch Trung ương</button>
+        <button type="button" class="btn-add-task" onclick="addTask('taskContainer2', 'KH_Tinhuy')">+ Kế hoạch Tỉnh ủy</button>
+        <button type="button" class="btn-add-task" onclick="addTask('taskContainer2', 'KH_UBND')">+ Kế hoạch HĐND/UBND</button>
+      </div>
+
+      <!-- IV. ĐĂNG KÝ LỊCH CÔNG TÁC -->
+      <div class="section">
+        <div class="section-title"><span>🗓️</span> IV. ĐĂNG KÝ LỊCH CÔNG TÁC</div>
+        <div class="form-group">
+          <textarea id="lichCongTac" rows="3" placeholder="Nhập lịch công tác với Tỉnh ủy, UBND tỉnh (nếu có)"></textarea>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-submit" id="submitBtn">📤 GỬI BÁO CÁO</button>
+      <div style="margin-top:12px; font-size:13px; color:#6a7b8c; text-align:center;">Dữ liệu sẽ được lưu và tổng hợp tự động</div>
+    </form>
+    <div class="footer">Sở Khoa học và Công nghệ tỉnh Tây Ninh · Hệ thống báo cáo tuần</div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // 👇 ĐÃ CẬP NHẬT URL WEB APP CỦA BẠN
+    const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbzhX6KSTRL6UpF2YqUGb11R4HhjZdsDLfxmIXnyDUxDNUPuyBvGnGC09H51poqtSK-u/exec';
+
+    var taskId = 0;
+
+    function addTask(containerId, loai) {
+      var container = document.getElementById(containerId);
+      var taskDiv = document.createElement('div');
+      taskDiv.className = 'task-group';
+      taskDiv.id = 'task-' + (++taskId);
+      var tenLoai = {
+        'NQ57': 'Nghị quyết 57',
+        'TW': 'Trung ương (Bộ) giao',
+        'Tinhuy': 'Tỉnh ủy giao',
+        'UBND': 'HĐND/UBND giao',
+        'KH_NQ57': '📌 Kế hoạch NQ57',
+        'KH_TW': '📌 Kế hoạch Trung ương',
+        'KH_Tinhuy': '📌 Kế hoạch Tỉnh ủy',
+        'KH_UBND': '📌 Kế hoạch HĐND/UBND'
+      };
+      taskDiv.innerHTML = `
+        <div class="task-header">
+          <span>📌 ${tenLoai[loai] || ''}</span>
+          <button type="button" class="btn-remove-task" onclick="this.closest('.task-group').remove()">✕ Xóa</button>
+        </div>
+        <div class="form-row">
+          <div class="form-group" style="flex:2;">
+            <label>Tên nhiệm vụ</label>
+            <input type="text" class="task-name" placeholder="Nhập tên nhiệm vụ..." required>
+          </div>
+          <div class="form-group" style="flex:1;">
+            <label>Số văn bản kèm theo</label>
+            <input type="text" class="task-so" placeholder="Ví dụ: 4231/SKHCN-CĐS">
+          </div>
+          <div class="form-group" style="flex:1;">
+            <label>Tình trạng</label>
+            <select class="task-status">
+              <option value="Hoàn thành">Hoàn thành</option>
+              <option value="Đang thực hiện">Đang thực hiện</option>
+              <option value="Trễ hạn">Trễ hạn</option>
+            </select>
+          </div>
+        </div>
+        <input type="hidden" class="task-loai" value="${loai}">
+      `;
+      container.appendChild(taskDiv);
+    }
+
+    async function submitForm(e) {
+      e.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      const toast = document.getElementById('toast');
+
+      // Kiểm tra dữ liệu bắt buộc
+      const unit = document.getElementById('unit').value;
+      const start = document.getElementById('startDate').value;
+      const end = document.getElementById('endDate').value;
+      const reporter = document.getElementById('reporter').value.trim();
+      if (!unit || !start || !end || !reporter) {
+        showToast('Vui lòng điền đầy đủ các trường bắt buộc (*)!', 'error');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> Đang xử lý...';
+
+      // Thu thập dữ liệu
+      const data = {
+        donVi: unit,
+        startDate: start,
+        endDate: end,
+        nguoiLap: reporter,
+        chuyenMon: document.getElementById('chuyenMon').value,
+        vonDauTu: document.getElementById('vonDauTu').value || '0',
+        giaiNgan: document.getElementById('giaiNgan').value || '0',
+        tyLeGiaiNgan: document.getElementById('tyLeGiaiNgan').value || '0',
+        kinhPhiGiao: document.getElementById('kinhPhiGiao').value || '0',
+        kinhPhiGiaiNgan: document.getElementById('kinhPhiGiaiNgan').value || '0',
+        tyLeGiaiNganKinhPhi: document.getElementById('tyLeGiaiNganKinhPhi').value || '0',
+        lichCongTac: document.getElementById('lichCongTac').value,
+        tasks: []
+      };
+
+      // Lấy danh sách nhiệm vụ từ cả hai container
+      document.querySelectorAll('#taskContainer1 .task-group, #taskContainer2 .task-group').forEach(el => {
+        const name = el.querySelector('.task-name')?.value?.trim() || '';
+        const so = el.querySelector('.task-so')?.value?.trim() || '';
+        const status = el.querySelector('.task-status')?.value || 'Hoàn thành';
+        const loai = el.querySelector('.task-loai')?.value || '';
+        if (name) {
+          data.tasks.push({ ten: name, soVB: so, trangThai: status, loai: loai });
+        }
+      });
+
+      try {
+        const response = await fetch(WEBAPP_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        showToast('✅ Báo cáo đã được gửi thành công! File Word đang được tạo.', 'success');
+        setTimeout(() => window.location.reload(), 3000);
+      } catch (error) {
+        showToast('❌ Lỗi kết nối: ' + error.message, 'error');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '📤 GỬI BÁO CÁO';
+      }
+    }
+
+    function showToast(msg, type) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.className = 'toast ' + (type === 'error' ? 'error' : 'success');
+      t.style.display = 'block';
+      setTimeout(() => { t.style.display = 'none'; }, 6000);
+    }
+
+    // Khởi tạo 2 task mẫu để hướng dẫn
+    window.onload = function() {
+      addTask('taskContainer1', 'NQ57');
+      addTask('taskContainer1', 'UBND');
+    };
+  </script>
+</body>
+</html>
