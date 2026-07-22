@@ -357,7 +357,7 @@
   <div class="toast" id="toast"></div>
 
   <script>
-    // 👇 ĐÃ CẬP NHẬT URL WEB APP CỦA BẠN
+    // 👇 ĐÃ CẬP NHẬT LINK API MỚI
     const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbzhX6KSTRL6UpF2YqUGb11R4HhjZdsDLfxmIXnyDUxDNUPuyBvGnGC09H51poqtSK-u/exec';
 
     var taskId = 0;
@@ -452,6 +452,7 @@
       });
 
       try {
+        // Gửi dữ liệu đến Web App
         const response = await fetch(WEBAPP_URL, {
           method: 'POST',
           mode: 'no-cors',
@@ -459,11 +460,25 @@
           body: JSON.stringify(data)
         });
 
+        // Với mode: 'no-cors', không thể đọc response nên chỉ hiển thị thành công
         showToast('✅ Báo cáo đã được gửi thành công! File Word tổng hợp đang được tạo/cập nhật.', 'success');
-        setTimeout(() => window.location.reload(), 3000);
+        
+        // Reset form sau 3 giây
+        setTimeout(() => {
+          document.getElementById('reportForm').reset();
+          // Reset các task về mặc định
+          ['taskContainer1', 'taskContainer2'].forEach(id => {
+            const container = document.getElementById(id);
+            container.innerHTML = '';
+          });
+          addTask('taskContainer1', 'NQ57');
+          addTask('taskContainer1', 'UBND');
+          btn.disabled = false;
+          btn.innerHTML = '📤 GỬI BÁO CÁO';
+        }, 3000);
+        
       } catch (error) {
         showToast('❌ Lỗi kết nối: ' + error.message, 'error');
-      } finally {
         btn.disabled = false;
         btn.innerHTML = '📤 GỬI BÁO CÁO';
       }
